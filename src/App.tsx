@@ -213,7 +213,7 @@ export default function App() {
 
     try {
       setIsExporting(true);
-      const filename = await exportCoverPageToPdf(sheetEl, data.documentType);
+      const filename = await exportCoverPageToPdf(data, sheetEl);
       setToast({
         type: 'success',
         message: `Downloaded ${filename} successfully.`,

@@ -327,3 +327,18 @@ export function getRequiredProgress(data: CoverPageData): {
     total: requiredValues.length,
   };
 }
+
+export function getExperimentNameFontSize(experimentName: string): string {
+  const length = experimentName.trim().length;
+  if (length <= 42) {
+    return '13pt';
+  }
+  if (length <= 54) {
+    return '12pt';
+  }
+  if (length <= 68) {
+    return '11pt';
+  }
+  return '10pt';
+}
+

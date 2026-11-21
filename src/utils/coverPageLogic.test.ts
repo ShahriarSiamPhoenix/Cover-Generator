@@ -8,6 +8,7 @@ import {
   createDefaultCoverPageData,
   formatAcademicDate,
   getDepartmentsForFaculty,
+  getExperimentNameFontSize,
   getExportFilename,
   getRequiredProgress,
   hasValidationErrors,
@@ -262,3 +263,30 @@ test('required progress counts accurately for assignment and lab report', () => 
   const lab = switchDocumentType(base, 'lab-report');
   assert.deepEqual(getRequiredProgress(lab), { completed: 2, total: 11 });
 });
+
+test('experiment name font size scales down smoothly for long titles', () => {
+  assert.equal(getExperimentNameFontSize(''), '13pt');
+  assert.equal(
+    getExperimentNameFontSize('Study of Logic Gates Using Digital ICs'),
+    '13pt'
+  );
+  assert.equal(
+    getExperimentNameFontSize(
+      'Implementation of Half Adder and Full Adder Circuits'
+    ),
+    '12pt'
+  );
+  assert.equal(
+    getExperimentNameFontSize(
+      'Implementation of Banker Algorithm for Deadlock Avoidance'
+    ),
+    '11pt'
+  );
+  assert.equal(
+    getExperimentNameFontSize(
+      'Design and Implementation of Synchronous Up-Down Counters Using JK Flip-Flops'
+    ),
+    '10pt'
+  );
+});
+

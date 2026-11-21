@@ -1,6 +1,9 @@
 import React from 'react';
 import type { CoverPageData } from '../types/coverPage';
-import { formatAcademicDate } from '../utils/coverPageLogic';
+import {
+  formatAcademicDate,
+  getExperimentNameFontSize,
+} from '../utils/coverPageLogic';
 
 interface CoverPageSheetProps {
   data: CoverPageData;
@@ -81,6 +84,8 @@ export const CoverPageSheet: React.FC<CoverPageSheetProps> = ({
     data.teacher.department.trim() || departmentName;
 
   const hasLogo = Boolean(data.logoDataUrl);
+  const trimmedExperimentName = data.course.experimentName.trim();
+  const experimentNameFontSize = getExperimentNameFontSize(trimmedExperimentName);
 
   return (
     <div
@@ -172,14 +177,6 @@ export const CoverPageSheet: React.FC<CoverPageSheetProps> = ({
             </p>
           )}
 
-          {/* Clean thin black horizontal divider */}
-          <div
-            className="w-full"
-            style={{
-              marginTop: '24px',
-              borderBottom: '1px solid #000000',
-            }}
-          />
         </header>
 
         {/* MIDDLE SECTION: Document Type Title & Structured Course / Experiment Details */}
@@ -238,27 +235,26 @@ export const CoverPageSheet: React.FC<CoverPageSheetProps> = ({
                   </p>
                 </div>
 
-                <div className="px-7 py-4 text-center">
-                  <p
-                    className="font-bold uppercase"
-                    style={{
-                      fontSize: '11pt',
-                      letterSpacing: '0.08em',
-                      color: '#000000',
-                    }}
-                  >
-                    Experiment Name
-                  </p>
+                <div className="px-4 py-4 text-center">
                   <h3
-                    className="mt-1.5 break-words font-bold"
+                    data-testid="lab-experiment-name-row"
+                    className="w-full break-words font-normal"
                     style={{
-                      fontSize: '14pt',
+                      fontSize: experimentNameFontSize,
                       lineHeight: 1.4,
                       color: '#000000',
                     }}
                   >
-                    {data.course.experimentName.trim() ||
-                      (forExport ? '' : '____________________________________')}
+                    <span
+                      className="font-bold whitespace-nowrap"
+                      style={{ marginRight: '2px', color: '#000000' }}
+                    >
+                      Experiment Name:
+                    </span>{' '}
+                    <span className="font-normal" style={{ color: '#000000' }}>
+                      {trimmedExperimentName ||
+                        (forExport ? '' : '__________________________')}
+                    </span>
                   </h3>
                 </div>
               </div>
@@ -497,10 +493,9 @@ export const CoverPageSheet: React.FC<CoverPageSheetProps> = ({
 
         {/* BOTTOM SECTION: Date of Submission (11.5pt–12pt) */}
         <footer
-          className="w-full pt-4 text-center"
+          className="w-full pt-2 text-center"
           style={{
             marginTop: '24px',
-            borderTop: '1px solid #000000',
             color: '#000000',
           }}
         >

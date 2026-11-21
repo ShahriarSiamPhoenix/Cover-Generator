@@ -1,0 +1,8 @@
+{
+  "name": "Netrokona University Cover Page Generator",
+  "description": "Academic cover page generator for Netrokona University assignments and lab reports with live A4 preview, PDF export, and direct printing.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
